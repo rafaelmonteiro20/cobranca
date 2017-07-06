@@ -33,4 +33,9 @@ public class TitulosController {
 		return new ModelAndView("redirect:/titulos/novo");
 	}
 	
+	@GetMapping
+	public ModelAndView pesquisar() {
+		return new ModelAndView("PesquisaTitulos");
+	}
+	
 }
