@@ -59,8 +59,8 @@
 							<label for="status" class="col-sm-2 control-label">Status</label>
 							<div class="col-sm-2">
 								<select class="form-control" name="status">
-									<option value="PENDENTE">Pendente</option>
-									<option value="RECEBIDO">Recebido</option>
+									<option th:each="status : ${todosStatus}" th:value="${status}"
+										th:text="${status.descricao}" />
 		                    	</select>
 		                    </div>
 						</div>

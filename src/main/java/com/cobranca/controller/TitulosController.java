@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cobranca.model.StatusTitulo;
 import com.cobranca.model.Titulo;
 import com.cobranca.repository.Titulos;
 
@@ -19,8 +20,10 @@ public class TitulosController {
 	private Titulos titulos;
 	
 	@GetMapping("/novo")
-	public String novo() {
-		return "CadastroTitulo";
+	public ModelAndView novo() {
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		mv.addObject("todosStatus", StatusTitulo.values());
+		return mv;
 	}
 	
 	@PostMapping
