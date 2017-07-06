@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 @Entity
 @Table(name = "titulo")
 public class Titulo {
@@ -24,8 +27,10 @@ public class Titulo {
 
 	private String descricao;
 
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nasc")
 	private Date dataVencimento;
