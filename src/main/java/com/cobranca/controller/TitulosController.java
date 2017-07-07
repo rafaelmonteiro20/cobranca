@@ -1,7 +1,10 @@
 package com.cobranca.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +23,17 @@ public class TitulosController {
 	private Titulos titulos;
 	
 	@GetMapping("/novo")
-	public ModelAndView novo() {
+	public ModelAndView novo(Titulo titulo) {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject("todosStatus", StatusTitulo.values());
 		return mv;
 	}
 	
 	@PostMapping
-	public ModelAndView salvar(Titulo titulo, RedirectAttributes attributes) {
+	public ModelAndView salvar(@Valid Titulo titulo, BindingResult result, RedirectAttributes attributes) {
+		if(result.hasErrors())
+			return novo(titulo);
+		
 		titulos.save(titulo);
 		attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
 		return new ModelAndView("redirect:/titulos/novo");

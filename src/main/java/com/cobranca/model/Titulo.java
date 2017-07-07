@@ -13,7 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -25,11 +28,15 @@ public class Titulo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotBlank(message = "Descrição é obrigatório.")
 	private String descricao;
 
+	@NotNull(message = "Valor é obrigatório.")
+	@DecimalMin(value = "1.0", message = "Valor não pode ser menor que R$ 1,00")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 
+	@NotNull(message = "Data de vencimento é obrigatório.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nasc")
