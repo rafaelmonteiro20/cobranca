@@ -1,61 +1,45 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
-    
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="Layout">
+
 	<head>
-	   <meta charset="UTF-8"/>
-	   <title>Pesquisa de títulos</title>    
-	   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-	   <link rel="stylesheet" type="text/css" href="/css/sistema.css" />
+		<title>Pesquisa de títulos</title>
 	</head>
 
-	<body>
-   		<nav class="navbar navbar-inverse navbar-static-top">
-	        <div class="container-fluid">
-	            <div class="navbar-header">
-	                <a class="navbar-brand" href="#">
-	                    
-	                </a>
-	            </div>
-	        </div>
-	    </nav>
-
-   		<div class="container">
-			<h2>Novo Título</h2>
-      	
-      		<table class="table table-bordered table-striped">
-      			<thead>
-      				<tr>
-      					<th class="text-center col-md-1">#</th>
-      					<th>Decrição</th>
-      					<th class="text-center col-md-2">Data de vencimento</th>
-      					<th class="text-right col-md-2">Valor</th>
-      					<th class="text-center col-md-2">Status</th>
-      					<th class="col-md-1"></th>
-      				</tr>
-      			</thead>
-      			
-      			<tbody>
-      				<tr th:each="titulo : ${titulos}">
-      					<td class="text-center" th:text="${titulo.id}"></td>
-      					<td th:text="${titulo.descricao}"></td>
-      					<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
-      					<td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
-      					<td class="text-center">
-      						<span class="label" th:text="${titulo.status.descricao}"
-	   							th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
-      					</td>
-      					<td class="text-center"></td>
-      				</tr>
-      				
-      				<tr>
-      					<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum título foi encontrado</td>
-      				</tr>
-      			</tbody>
-      		</table>
-      	</div>
-   
-	   <script src="/js/jquery-3.2.1.min.js"></script>
-	   <script src="/js/bootstrap.min.js"></script>
-	</body>
+	<div class="container" layout:fragment="conteudo">
+		<h2>Pesquisa de títulos</h2>
+	
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th class="text-center col-md-1">#</th>
+					<th>Decrição</th>
+					<th class="text-center col-md-2">Data de vencimento</th>
+					<th class="text-right col-md-2">Valor</th>
+					<th class="text-center col-md-2">Status</th>
+					<th class="col-md-1"></th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				<tr th:each="titulo : ${titulos}">
+					<td class="text-center" th:text="${titulo.id}"></td>
+					<td th:text="${titulo.descricao}"></td>
+					<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+					<td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
+					<td class="text-center"><span class="label"
+						th:text="${titulo.status.descricao}"
+						th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
+					</td>
+					<td class="text-center"></td>
+				</tr>
+	
+				<tr>
+					<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum
+						título foi encontrado</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </html>
