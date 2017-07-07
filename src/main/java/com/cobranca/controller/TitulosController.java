@@ -35,7 +35,9 @@ public class TitulosController {
 	
 	@GetMapping
 	public ModelAndView pesquisar() {
-		return new ModelAndView("PesquisaTitulos");
+		ModelAndView mv = new ModelAndView("PesquisaTitulos");
+		mv.addObject("titulos", titulos.findAll());
+		return mv;
 	}
 	
 }
