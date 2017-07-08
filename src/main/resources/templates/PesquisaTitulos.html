@@ -28,16 +28,25 @@
 					<td th:text="${titulo.descricao}"></td>
 					<td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
 					<td class="text-right" th:text="|R$ ${{titulo.valor}}|"></td>
-					<td class="text-center"><span class="label"
-						th:text="${titulo.status.descricao}"
-						th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"></span>
+					<td class="text-center">
+						<span class="label" th:text="${titulo.status.descricao}"
+							th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}">
+						</span>
 					</td>
-					<td class="text-center"></td>
+					<td class="text-center">
+						<a class="btn btn-link btn-xs" title="Editar" rel="tooltip" data-placement="top">
+	   						<span class="glyphicon glyphicon-pencil"></span>
+	   					</a>
+	   					<a class="btn btn-link btn-xs" title="Excluir" rel="tooltip" data-placement="top">
+	   						<span class="glyphicon glyphicon-remove"></span>
+	   					</a>
+					</td>
 				</tr>
 	
 				<tr>
-					<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum
-						título foi encontrado</td>
+					<td colspan="6" th:if="${#lists.isEmpty(titulos)}">
+						Nenhum título foi encontrado
+					</td>
 				</tr>
 			</tbody>
 		</table>
