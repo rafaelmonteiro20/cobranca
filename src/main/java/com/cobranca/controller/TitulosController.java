@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cobranca.model.StatusTitulo;
 import com.cobranca.model.Titulo;
 import com.cobranca.repository.Titulos;
+import com.cobranca.service.TitulosService;
 
 @Controller
 @RequestMapping("/titulos")
@@ -27,6 +27,9 @@ public class TitulosController {
 
 	@Autowired
 	private Titulos titulos;
+	
+	@Autowired
+	private TitulosService service;
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Titulo titulo) {
@@ -39,10 +42,10 @@ public class TitulosController {
 			return novo(titulo);
 		
 		try {
-			titulos.save(titulo);
+			service.salvar(titulo);
 			attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
 			return new ModelAndView("redirect:/titulos/novo");
-		} catch (DataIntegrityViolationException e) {
+		} catch (IllegalArgumentException e) {
 			result.rejectValue("dataVencimento", null, "Data inválida.");
 			return novo(titulo);
 		}
