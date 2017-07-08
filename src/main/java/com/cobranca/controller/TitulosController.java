@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +38,14 @@ public class TitulosController {
 		if(result.hasErrors())
 			return novo(titulo);
 		
-		titulos.save(titulo);
-		attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
-		return new ModelAndView("redirect:/titulos/novo");
+		try {
+			titulos.save(titulo);
+			attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
+			return new ModelAndView("redirect:/titulos/novo");
+		} catch (DataIntegrityViolationException e) {
+			result.rejectValue("dataVencimento", null, "Data inválida.");
+			return novo(titulo);
+		}
 	}
 	
 	@GetMapping
