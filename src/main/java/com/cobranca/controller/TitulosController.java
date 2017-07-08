@@ -1,11 +1,16 @@
 package com.cobranca.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,9 +29,7 @@ public class TitulosController {
 	
 	@GetMapping("/novo")
 	public ModelAndView novo(Titulo titulo) {
-		ModelAndView mv = new ModelAndView("CadastroTitulo");
-		mv.addObject("todosStatus", StatusTitulo.values());
-		return mv;
+		return new ModelAndView("CadastroTitulo");
 	}
 	
 	@PostMapping
@@ -44,6 +47,18 @@ public class TitulosController {
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", titulos.findAll());
 		return mv;
+	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView edicao(@PathVariable("id") Titulo titulo) {
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		mv.addObject(titulo);
+		return mv;
+	}
+	
+	@ModelAttribute(name = "todosStatus")
+	public List<StatusTitulo> todosStatus() {
+		return Arrays.asList(StatusTitulo.values());
 	}
 	
 }

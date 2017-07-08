@@ -34,7 +34,8 @@
 						</span>
 					</td>
 					<td class="text-center">
-						<a class="btn btn-link btn-xs" title="Editar" rel="tooltip" data-placement="top">
+						<a th:href="@{/titulos/{id}(id=${titulo.id})}"
+							class="btn btn-link btn-xs" title="Editar" rel="tooltip" data-placement="top">
 	   						<span class="glyphicon glyphicon-pencil"></span>
 	   					</a>
 	   					<a class="btn btn-link btn-xs" title="Excluir" rel="tooltip" data-placement="top">
