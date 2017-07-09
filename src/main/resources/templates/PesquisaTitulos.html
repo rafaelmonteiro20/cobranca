@@ -10,6 +10,10 @@
 	<div class="container" layout:fragment="conteudo">
 		<h2>Pesquisa de títulos</h2>
 	
+		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+			<span th:text="${mensagem}">Mensagem</span>
+		</div>
+	
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
@@ -38,7 +42,9 @@
 							class="btn btn-link btn-xs" title="Editar" rel="tooltip" data-placement="top">
 	   						<span class="glyphicon glyphicon-pencil"></span>
 	   					</a>
-	   					<a class="btn btn-link btn-xs" title="Excluir" rel="tooltip" data-placement="top">
+	   					<a class="btn btn-link btn-xs" title="Excluir" rel="tooltip" data-placement="top"
+	   						data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+	   						th:attr="data-id=${titulo.id}, data-descricao=${titulo.descricao}">
 	   						<span class="glyphicon glyphicon-remove"></span>
 	   					</a>
 					</td>
@@ -51,5 +57,7 @@
 				</tr>
 			</tbody>
 		</table>
+	
+		<div layout:include="DialogoConfirmacao" />
 	</div>
 </html>

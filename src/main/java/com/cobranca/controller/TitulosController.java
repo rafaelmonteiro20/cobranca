@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,6 +64,13 @@ public class TitulosController {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject(titulo);
 		return mv;
+	}
+	
+	@DeleteMapping("/{id}")
+	public ModelAndView excluir(@PathVariable Integer id, RedirectAttributes attributes) {
+		service.excluir(id);
+		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
+		return new ModelAndView("redirect:/titulos");
 	}
 	
 	@ModelAttribute(name = "todosStatus")

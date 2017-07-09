@@ -20,4 +20,9 @@ public class TitulosService {
 			throw new IllegalArgumentException("Data inválida.");
 		}
 	}
+	
+	public void excluir(Integer id) {
+		titulos.delete(id);
+	}
+	
 }
