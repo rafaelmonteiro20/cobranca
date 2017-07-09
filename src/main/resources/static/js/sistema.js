@@ -1,6 +1,15 @@
 $(function() {
 	$('[rel="tooltip"]').tooltip();
 	$('.js-moeda').maskMoney({ decimal : ',', thousands: '.', allowZero : true });
+	
+	$('.js-atualizar-status').on('click', function(event) {
+		event.preventDefault();
+		
+		var botaoReceber = $(event.currentTarget);
+		var url = botaoReceber.attr('href');
+		
+		console.log(url);
+	});
 });
 
 $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event) {
