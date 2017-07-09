@@ -6,9 +6,21 @@ $(function() {
 		event.preventDefault();
 		
 		var botaoReceber = $(event.currentTarget);
-		var url = botaoReceber.attr('href');
+		var urlReceber = botaoReceber.attr('href');
 		
-		console.log(url);
+		var resposta = $.ajax({
+			url: urlReceber,
+			type : 'PUT'
+		});
+		
+		resposta.done(function(e) {
+			botaoReceber.hide();
+		});
+		
+		resposta.fail(function(e) {
+			console.log('Error', e);
+		});
+		
 	});
 });
 

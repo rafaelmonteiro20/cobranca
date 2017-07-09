@@ -21,6 +21,16 @@ public class TitulosService {
 		}
 	}
 	
+	public void receber(Integer id) {
+		Titulo titulo = titulos.findOne(id);
+		
+		if(titulo == null)
+			throw new IllegalArgumentException("Título não encontrado.");
+	
+		titulo.receber();
+		titulos.save(titulo);
+	}
+	
 	public void excluir(Integer id) {
 		titulos.delete(id);
 	}
