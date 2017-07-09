@@ -14,11 +14,14 @@ $(function() {
 		});
 		
 		resposta.done(function(e) {
+			var idTitulo = botaoReceber.data('id');
+			$('[data-role=' + idTitulo + ']').html('<span class="label label-success">' + e + '</span>');
 			botaoReceber.hide();
 		});
 		
 		resposta.fail(function(e) {
 			console.log('Error', e);
+			alert('Um erro ocorreu ao receber o título selecionado.');
 		});
 		
 	});

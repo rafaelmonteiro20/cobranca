@@ -77,8 +77,8 @@ public class TitulosController {
 	
 	@PutMapping("/{id}/receber")
 	public @ResponseBody String receber(@PathVariable Integer id) {
-		service.receber(id);
-		return "OK";
+		Titulo titulo = service.receber(id);
+		return titulo.getStatus().getDescricao();
 	}
 	
 	@ModelAttribute(name = "todosStatus")
