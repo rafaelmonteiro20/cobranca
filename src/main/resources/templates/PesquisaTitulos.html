@@ -13,6 +13,22 @@
 		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
 			<span th:text="${mensagem}">Mensagem</span>
 		</div>
+		
+		<form method="GET" class="form-horizontal">
+	   		<div class="form-group">
+	   			<div class="col-sm-4">
+	   				<div class="input-group">
+	   					<input class="form-control" placeholder="Qual título você está procurando?"
+	   						autofocus="autofocus" />
+	   					<span class="input-group-btn">
+	   						<button type="submit" class="btn btn-default">
+	   							<i class="glyphicon glyphicon-search"></i>
+	   						</button>
+	   					</span>
+	   				</div>
+	   			</div>
+	   		</div>
+	   	</form>
 	
 		<table class="table table-bordered table-striped">
 			<thead>
