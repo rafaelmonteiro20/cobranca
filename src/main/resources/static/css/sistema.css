@@ -15,3 +15,10 @@
 	margin: 0px;
 	font-size: 18px;
 }
+
+.page-header-controls {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	height: 20px;
+}
