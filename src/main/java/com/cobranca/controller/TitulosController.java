@@ -21,16 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cobranca.model.StatusTitulo;
 import com.cobranca.model.Titulo;
-import com.cobranca.repository.Titulos;
+import com.cobranca.repository.filter.TituloFilter;
 import com.cobranca.service.TitulosService;
 
 @Controller
 @RequestMapping("/titulos")
 public class TitulosController {
 
-	@Autowired
-	private Titulos titulos;
-	
 	@Autowired
 	private TitulosService service;
 	
@@ -55,9 +52,9 @@ public class TitulosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar() {
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
-		mv.addObject("titulos", titulos.findAll());
+		mv.addObject("titulos", service.pesquisar(filtro));
 		return mv;
 	}
 	

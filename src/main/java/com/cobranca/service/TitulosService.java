@@ -1,11 +1,14 @@
 package com.cobranca.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.cobranca.model.Titulo;
 import com.cobranca.repository.Titulos;
+import com.cobranca.repository.filter.TituloFilter;
 
 @Service
 public class TitulosService {
@@ -34,6 +37,11 @@ public class TitulosService {
 	
 	public void excluir(Integer id) {
 		titulos.delete(id);
+	}
+
+	public List<Titulo> pesquisar(TituloFilter filtro) {
+		String descricao = filtro.getDescricao() == null ? "%" : filtro.getDescricao();
+		return titulos.findByDescricaoContaining(descricao);
 	}
 	
 }
