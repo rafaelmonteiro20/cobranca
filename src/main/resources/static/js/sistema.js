@@ -1,48 +1,48 @@
 $(function() {
 	$('[rel="tooltip"]').tooltip();
 	$('.js-moeda').maskMoney({ decimal : ',', thousands: '.', allowZero : true });
-	
-	$('.js-atualizar-status').on('click', function(event) {
-		event.preventDefault();
-		
-		var botaoReceber = $(event.currentTarget);
-		var urlReceber = botaoReceber.attr('href');
-		
-		var resposta = $.ajax({
-			url: urlReceber,
-			type : 'PUT'
-		});
-		
-		resposta.done(function(e) {
-			var idTitulo = botaoReceber.data('id');
-			$('[data-role=' + idTitulo + ']').html('<span class="label label-success">' + e + '</span>');
-			botaoReceber.hide();
-		});
-		
-		resposta.fail(function(e) {
-			console.log('Error', e);
-			alert('Um erro ocorreu ao receber o título selecionado.');
-		});
-		
-	});
 });
 
 $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event) {
 	
-	var button = $(event.relatedTarget);
-	var idTitulo = button.data('id');
-	var descricao = button.data('descricao');
-	
-	var modal = $(this);
-	var form = modal.find('form');
-	var action = form.data('url-base');
+	let button = $(event.relatedTarget);
+	let codigo = button.data('codigo');
+	let descricao = button.data('descricao');
+
+	let modal = $(this);
+	let form = modal.find('form');
+	let action = form.data('url-base');
 	
 	if(!action.endsWith()) {
 		action += '/';
 	}
 	
-	form.attr('action', action + idTitulo);
+	form.attr('action', action + codigo);
 	modal.find('.modal-body span').html('Tem certeza que deseja excluir o título <strong>' + 
 			descricao + '</strong>?');
+	
+});
+
+$('.js-atualizar-status').on('click', function(event) {
+	event.preventDefault();
+	
+	let botaoReceber = $(event.currentTarget);
+	let urlReceber = botaoReceber.attr('href');
+	
+	let resposta = $.ajax({
+		url: urlReceber,
+		type : 'PUT'
+	});
+	
+	resposta.done(function(e) {
+		let codigo = botaoReceber.data('codigo');
+		$('[data-role=' + codigo + ']').html('<span class="label label-success">' + e + '</span>');
+		botaoReceber.hide();
+	});
+	
+	resposta.fail(function(e) {
+		console.log('Error', e);
+		alert('Um erro ocorreu ao receber o título selecionado.');
+	});
 	
 });

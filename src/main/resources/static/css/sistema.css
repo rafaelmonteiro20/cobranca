@@ -1,24 +1,25 @@
-.navbar-inverse {
-	margin-bottom: 0px;
+.navbar-brand {
+	padding-top: 15px;
+	padding-left: 16px;
 }
 
-.page-header {
-	background: #fafbfc;
-	padding-top: 22px;
-	padding-bottom: 22px;
-	margin-top: 0px;
-	margin-bottom: 15px;
-	border-bottom: 1px solid #e1e4e8;
+.link-panel {
+	float: right;
+	padding: 0px;
 }
 
-.page-header h1 {
-	margin: 0px;
-	font-size: 18px;
+.titulo-panel {
+	float: left;
+	padding-top: 2px;
 }
 
-.page-header-controls {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	height: 20px;
+@media (max-width: 575.98px) {
+	.container {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	.navbar-brand {
+		padding-left: 25px;
+	}
 }

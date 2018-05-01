@@ -31,50 +31,50 @@ public class TitulosController {
 	@Autowired
 	private TitulosService service;
 	
-	@GetMapping("/novo")
-	public ModelAndView novo(Titulo titulo) {
-		return new ModelAndView("CadastroTitulo");
+	@GetMapping("/form")
+	public ModelAndView form(Titulo titulo) {
+		ModelAndView mv = new ModelAndView("cadastro-titulo");
+		mv.addObject(titulo);
+		return mv;
 	}
 	
-	@PostMapping
+	@PostMapping("/form")
 	public ModelAndView salvar(@Valid Titulo titulo, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors())
-			return novo(titulo);
+			return form(titulo);
 		
 		try {
 			service.salvar(titulo);
 			attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!");
-			return new ModelAndView("redirect:/titulos/novo");
+			return new ModelAndView("redirect:/titulos");
 		} catch (IllegalArgumentException e) {
 			result.rejectValue("dataVencimento", null, "Data inválida.");
-			return novo(titulo);
+			return form(titulo);
 		}
 	}
 	
 	@GetMapping
 	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
-		ModelAndView mv = new ModelAndView("PesquisaTitulos");
+		ModelAndView mv = new ModelAndView("pesquisa-titulos");
 		mv.addObject("titulos", service.pesquisar(filtro));
 		return mv;
 	}
 	
-	@GetMapping("/{id}")
-	public ModelAndView edicao(@PathVariable("id") Titulo titulo) {
-		ModelAndView mv = new ModelAndView("CadastroTitulo");
-		mv.addObject(titulo);
-		return mv;
+	@GetMapping("/{codigo}")
+	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
+		return form(titulo);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ModelAndView excluir(@PathVariable Integer id, RedirectAttributes attributes) {
-		service.excluir(id);
+	@DeleteMapping("/{codigo}")
+	public ModelAndView excluir(@PathVariable Integer codigo, RedirectAttributes attributes) {
+		service.excluir(codigo);
 		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
 		return new ModelAndView("redirect:/titulos");
 	}
 	
-	@PutMapping("/{id}/receber")
-	public @ResponseBody String receber(@PathVariable Integer id) {
-		Titulo titulo = service.receber(id);
+	@PutMapping("/{codigo}/receber")
+	public @ResponseBody String receber(@PathVariable Integer codigo) {
+		Titulo titulo = service.receber(codigo);
 		return titulo.getStatus().getDescricao();
 	}
 	

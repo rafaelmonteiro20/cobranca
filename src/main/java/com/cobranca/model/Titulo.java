@@ -3,14 +3,12 @@ package com.cobranca.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
@@ -21,12 +19,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
-@Table(name = "titulo")
 public class Titulo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer codigo;
 
 	@NotBlank(message = "Descrição é obrigatório.")
 	private String descricao;
@@ -39,18 +36,18 @@ public class Titulo {
 	@NotNull(message = "Data de vencimento é obrigatório.")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_nasc")
 	private Date dataVencimento;
 
+	@NotNull(message = "Status é obrigatório.")
 	@Enumerated(EnumType.STRING)
 	private StatusTitulo status;
 
-	public Integer getId() {
-		return id;
+	public Integer getCodigo() {
+		return codigo;
 	}
 	
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDescricao() {
@@ -97,7 +94,7 @@ public class Titulo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 
@@ -110,10 +107,10 @@ public class Titulo {
 		if (getClass() != obj.getClass())
 			return false;
 		Titulo other = (Titulo) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (codigo == null) {
+			if (other.codigo != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
 	}
